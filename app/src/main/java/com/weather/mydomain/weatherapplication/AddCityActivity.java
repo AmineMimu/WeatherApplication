@@ -25,16 +25,17 @@ public class AddCityActivity extends AppCompatActivity {
         paysEditText = (EditText) findViewById(R.id.editTextPays);
     }
 
+    // The method's called when the button "Enregistrer" is clicked
     public void saveCity(View view) {
 
         ville = villeEditText.getText().toString();
         pays = paysEditText.getText().toString();
 
-        // Ajout de la ville
+        // Adding new City
         town.add(new City(ville,pays));
         arrayCities.add(town.get(town.size()-1).getVille() + " ( " + town.get(town.size()-1).getPays().toUpperCase() + " )");
 
-        // On notifie à l'adapter qu'il a reçu de nouvelles données
+        // Notifying the adapter about receiving new data
         adapter.notifyDataSetChanged();
         //Toast.makeText(AddCityActivity.this, ville + " " + pays, Toast.LENGTH_LONG).show();
     }

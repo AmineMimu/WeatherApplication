@@ -15,8 +15,9 @@ import java.util.List;
  * Created by azzed on 17/10/2017.
  */
 
-class YahooService {
+public class YahooService {
 
+    // Declare an object where to recover data from the Yahoo API
     private JSONResponseHandler jsonResponseHandler = new JSONResponseHandler();
 
     private Uri.Builder uriBuilder;
@@ -27,6 +28,7 @@ class YahooService {
 
     String resultat = "";
 
+    //The method requesting the data from the Yahoo API
     public String getMeteo(String ville){
 
         uriBuilder = new Uri.Builder();
@@ -36,17 +38,19 @@ class YahooService {
         String urlPath = "/v1/public/yql";
         uriBuilder.path(urlPath);
         uriBuilder.appendQueryParameter("format", "json");
+        // Here use only the town name as a parameter for the API
         uriBuilder.appendQueryParameter("q", "select * from weather.forecast where woeid in " +
                 "(select woeid from geo.places(1) where text=\"" + ville + "\")");
 
 
-        Log.d("LOL","Yahoo Api");
-
+        //Log.d("LOL","Yahoo Api");
+        // Create the object who's gonna do the background work for each time requesting data about cities
         new SynchronizeWithYahooApi().execute();
 
         return resultat;
     }
 
+    // Used a private class in the API class for background synchronisation
     private class SynchronizeWithYahooApi extends AsyncTask<Void,Void,Void> {
         @Override
         protected Void doInBackground(Void... params) {
@@ -62,7 +66,7 @@ class YahooService {
                 String encoding = "UTF-8";
                 synchronizedCityItems = jsonResponseHandler.handleResponse(content, encoding);
 
-                Log.d("LOL ","DAMN! "+synchronizedCityItems.toString());
+                //Log.d("LOL ","DAMN! "+synchronizedCityItems.toString());
 
                 wind = synchronizedCityItems.get(0);
                 temperature = synchronizedCityItems.get(1);
@@ -70,7 +74,7 @@ class YahooService {
                 date = synchronizedCityItems.get(3);
 
 
-                Log.d("LOL","avant catch bzzt");
+                //Log.d("LOL","avant catch bzzt");
 
             } catch (Exception e) {
                 System.out.println("LOL" + e.toString());

@@ -34,12 +34,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //town.add(new City("Alger", "Algérie", "20Km/h", "NE", "27c", "1040hPa", "10/10/2017"));
-
-        //arrayCities.add(town.get(0).getVille() + " ( " + town.get(0).getPays().toUpperCase() + " )");
-
-        //Log.d("LOL","Main");
-
         yahooService = new YahooService();
 
         town = new ArrayList<>();
@@ -50,22 +44,17 @@ public class MainActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, arrayCities);
         townListView.setAdapter(adapter);
 
-        // Clique sur un élément de la listView
+        // When click on an element from the ListView displays the details of the clicked item
         townListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(view.getContext(), CityViewActivity.class);
-                    /*intent.putExtra("ville",town.get(position).getVille());
-                    intent.putExtra("pays",town.get(position).getPays());
-                    intent.putExtra("vent",town.get(position).getVent());
-                    intent.putExtra("temperature",town.get(position).getTemperature());
-                    intent.putExtra("pression",town.get(position).getPression());
-                    intent.putExtra("date",town.get(position).getDate());*/
 
                 String resultat = yahooService.getMeteo(town.get(position).getVille());
 
-                Log.d("LOL",resultat);
+                //Log.d("LOL",resultat);
 
+                // Send those data to CityViewActivity
                 intent.putExtra("ville",town.get(position).getVille());
                 intent.putExtra("pays",town.get(position).getPays());
                 intent.putExtra("vent",wind);
@@ -78,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // Starting AddCityActivity by this method
     public void addCity(View view) {
         Intent intent = new Intent(view.getContext(), AddCityActivity.class);
         startActivityForResult(intent,0);

@@ -4,6 +4,7 @@ package com.weather.mydomain.weatherapplication;
  * Created by azzed on 17/10/2017.
  */
 
+// The class describing the city
 public class City {
 
     private String ville, pays, vent, temperature, pression, date;

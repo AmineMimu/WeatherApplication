@@ -14,7 +14,7 @@ public class CityViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city_view);
-
+        // Respectively bind the graphical elements to the class attributes
         villeTextView = (TextView) findViewById(R.id.villeTextView);
         paysTextView= (TextView) findViewById(R.id.paysTextView);
         ventTextView= (TextView) findViewById(R.id.ventTextView);
@@ -24,7 +24,7 @@ public class CityViewActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-
+        // Recover data from the intent sent by the MainActivity and display 'em on the TextView elements on the view
         villeTextView.setText(intent.getStringExtra("ville"));
         paysTextView.setText(intent.getStringExtra("pays"));
         ventTextView.setText(intent.getStringExtra("vent"));
