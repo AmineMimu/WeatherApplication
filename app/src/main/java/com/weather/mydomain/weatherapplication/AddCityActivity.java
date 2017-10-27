@@ -1,5 +1,6 @@
 package com.weather.mydomain.weatherapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,7 +9,6 @@ import android.widget.EditText;
 import static com.weather.mydomain.weatherapplication.MainActivity.adapter;
 import static com.weather.mydomain.weatherapplication.MainActivity.arrayCities;
 import static com.weather.mydomain.weatherapplication.MainActivity.town;
-import static com.weather.mydomain.weatherapplication.YahooService.synchronizedCityItems;
 
 public class AddCityActivity extends AppCompatActivity {
 
@@ -38,5 +38,8 @@ public class AddCityActivity extends AppCompatActivity {
         // Notifying the adapter about receiving new data
         adapter.notifyDataSetChanged();
         //Toast.makeText(AddCityActivity.this, ville + " " + pays, Toast.LENGTH_LONG).show();
+
+        // Finish the actual activity to return back to the mainAct
+        finish();
     }
 }
