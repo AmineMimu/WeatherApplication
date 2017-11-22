@@ -2,8 +2,6 @@ package com.weather.mydomain.weatherapplication;
 
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
-
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -28,7 +26,11 @@ public class YahooService {
 
     String resultat = "";
 
-    //The method requesting the data from the Yahoo API
+    /**
+     * The method requesting the data from the Yahoo API
+     * @param ville
+     * @return
+     */
     public String getMeteo(String ville){
 
         uriBuilder = new Uri.Builder();
@@ -50,8 +52,10 @@ public class YahooService {
         return resultat;
     }
 
-    // Used a private class in the API class for background synchronisation
-    private class SynchronizeWithYahooApi extends AsyncTask<Void,Void,Void> {
+    /**
+     * Used a private class in the API class for background synchronisation
+     */
+    private class SynchronizeWithYahooApi extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
             String queryUrl = uriBuilder.build().toString();
@@ -83,52 +87,4 @@ public class YahooService {
             return null;
         }
     }
-
-    /*public  void synchronizeWithYahooApi(){
-            String queryUrl = uriBuilder.build().toString();
-
-            try {
-                URL url = new URL(queryUrl);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setConnectTimeout(5000);
-                urlConnection.connect();
-
-                InputStream content = new BufferedInputStream(urlConnection.getInputStream());
-
-                String encoding = "UTF-8";
-                synchronizedCityItems = jsonResponseHandler.handleResponse(content, encoding);
-                wind = "blabla"+synchronizedCityItems.get(0);
-                temperature = synchronizedCityItems.get(1);
-                pression = synchronizedCityItems.get(2);
-                date = synchronizedCityItems.get(3);
-
-            }
-            catch (Exception e) {
-                System.out.println("LOL"+e.toString());
-            }
-        }*/
 }
-
-    /*private class SynchronizeWithYahooApi extends AsyncTask<Void,Void,Void> {
-        @Override
-        protected Void doInBackground(Void... params) {
-            String queryUrl = uriBuilder.build().toString();
-            try {
-                URL url = new URL(queryUrl);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setConnectTimeout(5000);
-                urlConnection.connect();
-
-                InputStream content = new BufferedInputStream(urlConnection.getInputStream());
-
-                String encoding = "UTF-8";
-                synchronizedCityItems.addAll(jsonResponseHandler.handleResponse(content, encoding));
-            }
-            catch (Exception e) {
-                System.out.println("LOL"+e.toString());
-            }
-
-            return null;
-        }
-    }*/
-

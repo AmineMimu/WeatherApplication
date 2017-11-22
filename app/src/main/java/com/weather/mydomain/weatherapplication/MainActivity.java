@@ -1,10 +1,8 @@
 package com.weather.mydomain.weatherapplication;
 
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -52,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
                 String resultat = yahooService.getMeteo(town.get(position).getVille());
 
-                //Log.d("LOL",resultat);
-
                 // Send those data to CityViewActivity
                 intent.putExtra("ville",town.get(position).getVille());
                 intent.putExtra("pays",town.get(position).getPays());
@@ -67,10 +63,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Starting AddCityActivity by this method
+    /**
+     * Used a private class in the API class for background synchronisation
+     * @param view
+     */
     public void addCity(View view) {
         Intent intent = new Intent(view.getContext(), AddCityActivity.class);
         startActivityForResult(intent,0);
     }
-
 }

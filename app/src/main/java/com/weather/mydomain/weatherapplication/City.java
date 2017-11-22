@@ -1,5 +1,7 @@
 package com.weather.mydomain.weatherapplication;
 
+import android.util.Log;
+
 /**
  * Created by azzed on 17/10/2017.
  */
@@ -7,7 +9,7 @@ package com.weather.mydomain.weatherapplication;
 // The class describing the city
 public class City {
 
-    private String ville, pays, vent, temperature, pression, date;
+    public String ville, pays, vent, temperature, pression, date;
 
     public City(String ville, String pays) {
         this.ville = ville;
@@ -23,7 +25,17 @@ public class City {
         this.date = date;
     }
 
-
+    @Override
+    public String toString() {
+        return "City{" +
+                "ville='" + ville + '\'' +
+                ", pays='" + pays + '\'' +
+                ", vent='" + vent + '\'' +
+                ", temperature='" + temperature + '\'' +
+                ", pression='" + pression + '\'' +
+                ", date='" + date + '\'' +
+                '}';
+    }
 
     public String getVille() {
         return ville;
