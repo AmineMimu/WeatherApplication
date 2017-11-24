@@ -1,5 +1,4 @@
 package com.weather.mydomain.weatherapplication;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,9 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import java.util.ArrayList;
-
 import static com.weather.mydomain.weatherapplication.YahooService.date;
 import static com.weather.mydomain.weatherapplication.YahooService.pression;
 import static com.weather.mydomain.weatherapplication.YahooService.temperature;
@@ -18,25 +15,18 @@ import static com.weather.mydomain.weatherapplication.YahooService.wind;
 public class MainActivity extends AppCompatActivity {
 
     ListView townListView;
-
-    static ArrayList<City> town;
-
-    static ArrayList<String> arrayCities;
-
+    static ArrayList<City> town;    // ArrayList of the details of a city
+    static ArrayList<String> arrayCities;   // ArrayList of the cities displayed on the ListView
     static ArrayAdapter<String> adapter;
-
     YahooService yahooService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         yahooService = new YahooService();
-
         town = new ArrayList<>();
         arrayCities = new ArrayList<>();
-
         townListView = (ListView) findViewById(R.id.townListView);
         adapter = new ArrayAdapter<>(MainActivity.this,
                 android.R.layout.simple_list_item_1, arrayCities);
@@ -59,6 +49,16 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("date",date);
 
                 startActivityForResult(intent,0);
+            }
+        });
+
+        // When long click on element to destroy element
+        townListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int pos, long arg3){
+                arrayCities.remove(pos);//where arg2 is position of item you click
+                adapter.notifyDataSetChanged();
+                return true;
             }
         });
     }
