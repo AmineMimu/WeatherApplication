@@ -32,6 +32,7 @@ public class AddCityActivity extends AppCompatActivity {
 
         // Adding new City
         town.add(new City(ville, pays));
+        DataBaseHandler.getInstance(getApplicationContext()).addNewCity(new City(ville,pays));
         arrayCities.add(town.get(town.size()-1).getVille() + " ( " + town.get(town.size()-1).getPays().toUpperCase() + " )");
 
         // Notifying the adapter about receiving new data

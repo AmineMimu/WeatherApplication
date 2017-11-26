@@ -7,6 +7,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import java.util.ArrayList;
+import java.util.List;
+
 import static com.weather.mydomain.weatherapplication.YahooService.date;
 import static com.weather.mydomain.weatherapplication.YahooService.pression;
 import static com.weather.mydomain.weatherapplication.YahooService.temperature;
@@ -15,18 +17,26 @@ import static com.weather.mydomain.weatherapplication.YahooService.wind;
 public class MainActivity extends AppCompatActivity {
 
     ListView townListView;
-    static ArrayList<City> town;    // ArrayList of the details of a city
+    static List<City> town;    // ArrayList of the cities
     static ArrayList<String> arrayCities;   // ArrayList of the cities displayed on the ListView
     static ArrayAdapter<String> adapter;
     YahooService yahooService;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        DataBaseHandler myDB = new DataBaseHandler(this);
         setContentView(R.layout.activity_main);
         yahooService = new YahooService();
-        town = new ArrayList<>();
+        town = myDB.getAllCities();
         arrayCities = new ArrayList<>();
+
+
+        for (City city : town){
+            arrayCities.add(city.getVille());
+        }
+
         townListView = (ListView) findViewById(R.id.townListView);
         adapter = new ArrayAdapter<>(MainActivity.this,
                 android.R.layout.simple_list_item_1, arrayCities);
@@ -56,7 +66,9 @@ public class MainActivity extends AppCompatActivity {
         townListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int pos, long arg3){
+                DataBaseHandler.getInstance(getApplicationContext()).deleteCity(arrayCities.get(pos));
                 arrayCities.remove(pos);//where arg2 is position of item you click
+
                 adapter.notifyDataSetChanged();
                 return true;
             }

@@ -36,6 +36,15 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     }
 
     /**
+     * Method to use the same DB instance inside other classes
+     * @param context
+     * @return
+     */
+    public static DataBaseHandler getInstance(final Context context){
+        return new DataBaseHandler(context);
+    }
+
+    /**
      * On creation
      * @param myDB
      */
@@ -105,11 +114,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         return citiesList;
     }
     // delete a city
-    public void deleteCity(City city){
+    public void deleteCity(String city){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_CITY, KEY_ID + " = ?", new String[] {String.valueOf(city.getId())});
+        db.delete(TABLE_CITY, KEY_CITY_NAME + " = ?", new String[] {city});
         db.close();
     }
 }
-
-// http://mobilesiri.com/android-sqlite-database-tutorial-using-android-studio/
