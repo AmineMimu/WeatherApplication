@@ -17,4 +17,4 @@ Weather application on Android Studio for school
   - When deleting cities --> from the DB
   - When executing the app --> fetch cities name saved on the DB, then the API takes 2s to fetch other data from Yahoo server
   - Refresh function : working --> executing the request of synchronization data from Yahoo API with an Asynk task.
-  
+  - Content provider class working, with /weather and with /country/city
