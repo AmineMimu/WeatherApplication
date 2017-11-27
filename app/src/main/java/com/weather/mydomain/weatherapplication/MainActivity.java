@@ -1,6 +1,7 @@
 package com.weather.mydomain.weatherapplication;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
     static ArrayAdapter<String> adapter;
     YahooService yahooService;
 
+    private String cityTMP;
+
+    SwipeRefreshLayout mySwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -34,8 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         for (City city : town){
-            arrayCities.add(city.getVille());
+            arrayCities.add(city.getVille() + " (" + city.getPays() + ")");
         }
+        // Refresh action
 
         townListView = (ListView) findViewById(R.id.townListView);
         adapter = new ArrayAdapter<>(MainActivity.this,
@@ -48,7 +53,9 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(view.getContext(), CityViewActivity.class);
 
-                String resultat = yahooService.getMeteo(town.get(position).getVille());
+                yahooService.getMeteo(town.get(position).getVille());
+
+                cityTMP = town.get(position).getVille();
 
                 // Send those data to CityViewActivity
                 intent.putExtra("ville",town.get(position).getVille());
@@ -73,6 +80,20 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
+        mySwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        mySwipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+
+                            yahooService.getMeteo(cityTMP);
+                            mySwipeRefreshLayout.setRefreshing(false);
+                    }
+                }
+        );
+
     }
 
     /**
