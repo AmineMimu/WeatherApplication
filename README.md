@@ -11,3 +11,8 @@ Weather application on Android Studio for school
     - Use the button "Enregistrer" to save the added City.
   - need to go back to the Home page to show details about the added City
     - Need to click on a city to show more details about it
+    
+# Part 02 - Adding a database:
+  - When cities added --> saved to the DB
+  - When deleting cities --> from the DB
+  - When executing the app --> fetch cities name saved on the DB, then the API takes 2s to fetch other data from Yahoo server
