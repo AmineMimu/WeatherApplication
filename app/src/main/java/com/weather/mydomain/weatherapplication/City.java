@@ -7,6 +7,8 @@ package com.weather.mydomain.weatherapplication;
 // The class describing the city
 public class City {
 
+
+
     public int id;
     public String ville, pays, vent, temperature, pression, date;
 
@@ -23,6 +25,15 @@ public class City {
         this.vent = vent;
         this.pression = pression;
         this.temperature = temperature;
+    }
+
+    public City(String ville, String pays, String vent, String temperature, String pression, String date) {
+        this.ville = ville;
+        this.pays = pays;
+        this.vent = vent;
+        this.temperature = temperature;
+        this.pression = pression;
+        this.date = date;
     }
 
     public City() {

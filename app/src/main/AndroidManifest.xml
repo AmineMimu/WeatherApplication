@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.weather.mydomain.weatherapplication">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -20,7 +19,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".CityViewActivity" />
-        <activity android:name=".AddCityActivity"></activity>
+        <activity android:name=".AddCityActivity" />
+
+        <provider
+            android:name=".CityProvider"
+            android:authorities="com.weather.mydomain.weatherapplication"
+            android:enabled="true"
+            android:exported="true"></provider>
     </application>
 
 </manifest>

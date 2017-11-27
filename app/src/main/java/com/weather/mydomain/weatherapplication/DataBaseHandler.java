@@ -15,17 +15,20 @@ import java.util.List;
 
 public class DataBaseHandler extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "weathersCities";    // Name of DB
+    private static final String DATABASE_NAME = "weathersCities2";    // Name of DB
     private static final int DATABASE_VERSION = 1;   // Version DB
     private static final String TABLE_CITY = "cities";    // Table Name
     // Columns
     private static final String KEY_ID = "id";
-    private static final String KEY_CITY_NAME = "city_name";
+    public static final String KEY_CITY_NAME = "city_name";
     private static final String KEY_CITY_COUNTRY = "city_country";
     private static final String KEY_CITY_DATE = "city_date";
     private static final String KEY_CITY_WIND = "city_wind";
-    private static final String KEY_CITY_PRESSURE = "city_pressure";
+    public static final String KEY_CITY_PRESSURE = "city_pressure";
     private static final String KEY_CITY_TEMPERATURE = "city_temperature";
+
+    public static final String[] allFields = { KEY_CITY_NAME, KEY_CITY_COUNTRY, KEY_CITY_DATE, KEY_CITY_WIND, KEY_CITY_PRESSURE, KEY_CITY_TEMPERATURE};
+
 
     /**
      * Constructor
@@ -55,8 +58,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_CITY_NAME + " TEXT,"
                 + KEY_CITY_COUNTRY + " TEXT," + KEY_CITY_DATE + " TEXT,"
                 + KEY_CITY_WIND + " TEXT," + KEY_CITY_PRESSURE + " TEXT,"
-                + KEY_CITY_TEMPERATURE + " TEXT"
-                + ")";
+                + KEY_CITY_TEMPERATURE + " TEXT,"
+                + "unique ("+KEY_CITY_NAME+","+ KEY_CITY_COUNTRY+"));";
         // Executing the request
         myDB.execSQL(CREATE_CONTACTS_TABLE);
     }
